@@ -2,7 +2,10 @@ import request, { UriOptions, RequestCallback, Response } from "request";
 import initLogger from "./logger";
 import JSONbig from "json-bigint";
 import { ENVIRONMENT } from "./secrets";
-const { logDebug, logError } = initLogger("[request.ts]");
+const [logDebug, logError] = [
+  initLogger("[request.ts]")("debug"),
+  initLogger("[request.ts]")("error"),
+];
 const monitorRequest = (
   option: UriOptions,
   callback: RequestCallback

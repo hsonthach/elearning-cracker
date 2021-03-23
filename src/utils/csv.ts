@@ -1,7 +1,5 @@
 import * as fs from "fs";
 import * as csv from "fast-csv";
-import initLogger from "./logger";
-const { logDebug } = initLogger("[csv.ts]");
 import { Struct } from "../types/global";
 // pathName is path from nodejs root path
 export function appendCSV(
@@ -29,7 +27,7 @@ export function readCSV<T>(
   data: T[],
   haveHeader: boolean = false
 ): void {
-  logDebug("Reading data ...");
+  console.log("Reading data ...");
   fs.createReadStream(pathName)
     .pipe(csv.parse({ headers: haveHeader }))
     .on("error", (error) => console.error(error))
@@ -38,7 +36,7 @@ export function readCSV<T>(
       if (record) data.push(record);
     })
     .on("end", (rowCount: number) => {
-      logDebug(`Parsed ${rowCount} rows`);
+      console.log(`Parsed ${rowCount} rows`);
       finishCallback(data);
     });
 }
@@ -69,18 +67,18 @@ export const filterCSV = <T extends Struct>(
   data: T[] = [],
   finishCallback: () => void = null
 ): void => {
-  logDebug("Reading data ...");
+  console.log("Reading data ...");
   fs.createReadStream(inputPath)
     .pipe(csv.parse({ headers: haveHeader }))
     .on("error", (error) => console.error(error))
     .on("data", (row: string[]) => {
       const record: T = convertFunc(data, row);
-      //if (record) logDebug(record);
+      //if (record) console.log(record);
       if (record) data.push(record);
     })
     .on("end", (rowCount: number) => {
-      logDebug(`Row row count: ${rowCount} rows`);
-      logDebug(`New row count: ${data.length} rows`);
+      console.log(`Row row count: ${rowCount} rows`);
+      console.log(`New row count: ${data.length} rows`);
       if (finishCallback)
         return writeCSV(outputPath, data, haveHeader, finishCallback);
       writeCSV(outputPath, data, haveHeader);

@@ -1,6 +1,3 @@
-import initLogger from "./logger";
-const { logDebug, logError } = initLogger("[request/util.ts]");
-
 export const fakeReq = (): Promise<string> => {
   return new Promise((resolve, rejects) => {
     setTimeout(() => {
@@ -31,14 +28,14 @@ export const executePromiseTillSuccess = async <ExpectedResponse>(
   attempt: number,
   initAttempt: number = 0
 ): Promise<ExpectedResponse> => {
-  logDebug("callPromiseTillSuccess");
+  console.log("callPromiseTillSuccess");
   if (initAttempt >= attempt) return;
   try {
     const res = await promiseCallback();
     return res;
   } catch (error) {
-    logDebug("Error:");
-    logError(error);
+    console.log("Error:");
+    console.log(error);
     return await setTimeoutPromise(delayForNextRequest, async () => {
       return await executePromiseTillSuccess(
         promiseCallback,

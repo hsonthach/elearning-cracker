@@ -1,7 +1,10 @@
 import axios, { AxiosRequestConfig } from "axios";
 import initLogger from "./logger";
 const monitorAxios = axios.create();
-const { logDebug, logError } = initLogger("[axios.ts]");
+const [logDebug, logError] = [
+  initLogger("[axios.ts]")("debug"),
+  initLogger("[axios.ts]")("error"),
+];
 monitorAxios.interceptors.request.use(
   (
     config: AxiosRequestConfig
