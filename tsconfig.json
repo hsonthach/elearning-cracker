@@ -3,7 +3,7 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es6",
+    "target": "ES2017",
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
@@ -13,10 +13,10 @@
       "*": ["node_modules/*", "src/types/*"]
     },
     "allowJs": true,
-    "maxNodeModuleJsDepth": 10,
+    "maxNodeModuleJsDepth": 10
   },
   "include": [
     // file or folder that will be compiled
     "src/**/*"
-  ],
+  ]
 }

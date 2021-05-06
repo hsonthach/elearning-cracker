@@ -1,19 +1,21 @@
 {
   "parser": "@typescript-eslint/parser",
-  "extends": ["plugin:@typescript-eslint/recommended",  "plugin:mocha/recommended"],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:mocha/recommended"
+  ],
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": [
-    "mocha"
-  ],
+  "plugins": ["mocha"],
   "rules": {
     "semi": [0, "always"],
     "quotes": [0, "double"],
-    "@typescript-eslint/explicit-function-return-type": "warn",
-    "@typescript-eslint/no-explicit-any": 1,
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-empty-function": ["off"],
     "@typescript-eslint/no-inferrable-types": [
       "warn",
       {
@@ -21,13 +23,13 @@
       }
     ],
     "@typescript-eslint/no-unused-vars": "warn",
-    "require-await":"warn",
+    "require-await": "warn",
     "@typescript-eslint/no-floating-promises": ["warn"],
     "mocha/no-skipped-tests": "warn",
     "mocha/no-exclusive-tests": "warn",
     "mocha/no-mocha-arrows": "off",
     "mocha/no-setup-in-describe": "off",
-    "mocha/no-hooks-for-single-case": "off"
-
+    "mocha/no-hooks-for-single-case": "off",
+    "prefer-const": "warn"
   }
 }

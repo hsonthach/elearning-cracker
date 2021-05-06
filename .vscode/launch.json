@@ -31,15 +31,34 @@
       }
     },
     {
+      "name": "Current TS File",
       "type": "node",
       "request": "launch",
-      "name": "Playground",
+      "args": ["${relativeFile}"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
       "skipFiles": [
         "<node_internals>/**",
         "${workspaceFolder}/node_modules/**"
       ],
-      "program": "${workspaceFolder}/dist/playground.js",
-      "outputCapture": "std"
+      "console": "integratedTerminal",
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector"
     },
+    {
+      "name": "Current JS File",
+      "type": "node",
+      "request": "launch",
+      "args": ["${relativeFile}"],
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**"
+      ],
+      "console": "integratedTerminal",
+      "runtimeArgs": ["--nolazy"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector"
+    }
   ]
 }

@@ -9,3 +9,8 @@ export type CheckFunc<T> = (value: T) => boolean;
 export type Struct = {
   [any: string]: any;
 };
+export type Questions = {
+  [any: string]: {
+    possibleAnswers: string[];
+  };
+};
