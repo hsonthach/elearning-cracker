@@ -9,10 +9,10 @@ const USERNAME_SELECTOR = "#username";
 const PASSWORD_SELECTOR = "#password";
 const LOGIN_SELECTOR = `[name="submit"]`;
 const ENTER_EXAM_SELECTOR = `[type="submit"]`;
-const NUM_PAGE = 5;
+const NUM_PAGE = 6;
 const DELAY_TIME = 3000;
 
-const ID = 472944;
+const ID = 472945;
 const EXAM_RESULT_URL = `http://e-learning.hcmut.edu.vn/mod/quiz/view.php?id=${ID}`;
 const QUESTIONS_PATH = rootPath.concat(`/assets/${ID}.json`);
 const BACKUP_PATH = rootPath.concat(`/assets/${ID}-backup.json`);
@@ -104,11 +104,8 @@ class ElearningCracker {
   private fillAnswer = async () => {
     for (let i = 0; i < NUM_PAGE; i++) {
       await this.fillAnswerByPage(i);
-      if (i === NUM_PAGE - 1) {
-        await this.submitAnswer();
-        break;
-      }
     }
+    await this.submitAnswer();
   };
 
   /**
