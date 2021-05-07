@@ -9,11 +9,11 @@ const USERNAME_SELECTOR = "#username";
 const PASSWORD_SELECTOR = "#password";
 const LOGIN_SELECTOR = `[name="submit"]`;
 const ENTER_EXAM_SELECTOR = `[type="submit"]`;
-const NUM_PAGE = 6;
 const DELAY_TIME = 3000;
 
-const ID = 472945;
+const ID = 502473;
 const EXAM_RESULT_URL = `http://e-learning.hcmut.edu.vn/mod/quiz/view.php?id=${ID}`;
+const NUM_PAGE = 3;
 const QUESTIONS_PATH = rootPath.concat(`/assets/${ID}.json`);
 const BACKUP_PATH = rootPath.concat(`/assets/${ID}-backup.json`);
 const USER_NAME = "son.thach011011";
@@ -26,7 +26,9 @@ class ElearningCracker {
 
   private examURL: string;
 
-  private questions: Questions = readJson(QUESTIONS_PATH, {});
+  private questions: Questions;
+
+  private examResultURL: string;
 
   private checkingTitle: string;
 
@@ -34,13 +36,24 @@ class ElearningCracker {
 
   private puppeteerUtils: PuppeteerUtility;
 
+  private questionPath: string;
+
+  private backupPath: string;
+
+  constructor(id: number, private userName: string, private password: string) {
+    this.questionPath = rootPath.concat(`/assets/${id}.json`);
+    this.backupPath = rootPath.concat(`/assets/${id}-backup.json`);
+    this.questions = readJson(this.questionPath, {});
+    this.examResultURL = `http://e-learning.hcmut.edu.vn/mod/quiz/view.php?id=${id}`;
+  }
+
   private gotoExamPage = async (pageNum: number) => {
     const examPage = this.examURL + `&page=${pageNum}`;
     await this.puppeteerUtils.gotoTillSucess(examPage);
   };
 
   private enterExam = async () => {
-    await this.puppeteerUtils.gotoTillSucess(EXAM_RESULT_URL);
+    await this.puppeteerUtils.gotoTillSucess(this.examResultURL);
     await this.puppeteerUtils.clickTillSuccess(ENTER_EXAM_SELECTOR);
     this.examURL = await this.getCurrentURL();
   };
@@ -220,14 +233,14 @@ class ElearningCracker {
     const loginPanelURL =
       "https://sso.hcmut.edu.vn/cas/login?service=http%3A%2F%2Fe-learning.hcmut.edu.vn%2Flogin%2Findex.php%3FauthCAS%3DCAS";
     await this.puppeteerUtils.gotoTillSucess(loginPanelURL);
-    await this.page.type(USERNAME_SELECTOR, USER_NAME);
-    await this.page.type(PASSWORD_SELECTOR, PASSWORD);
+    await this.page.type(USERNAME_SELECTOR, this.userName);
+    await this.page.type(PASSWORD_SELECTOR, this.password);
     await this.puppeteerUtils.clickTillSuccess(LOGIN_SELECTOR);
     await this.page.waitFor(DELAY_TIME);
   };
 
   execute = async () => {
-    writeJson(BACKUP_PATH, this.questions);
+    writeJson(this.backupPath, this.questions);
 
     this.browser = await puppeteer.launch({
       headless: false,
@@ -242,7 +255,7 @@ class ElearningCracker {
     while (this.checkingTitle) {
       await this.markAnswer();
       // Record questions
-      writeJson(QUESTIONS_PATH, this.questions);
+      writeJson(this.questionPath, this.questions);
       console.log(this.questions);
       await this.enterExamAndGetTitle();
     }
@@ -253,7 +266,8 @@ class ElearningCracker {
 }
 
 const main = async () => {
-  await new ElearningCracker().execute();
+  [502474, 502475];
+  await new ElearningCracker(ID, USER_NAME, PASSWORD).execute();
 };
 
 main();
