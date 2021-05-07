@@ -11,11 +11,6 @@ const LOGIN_SELECTOR = `[name="submit"]`;
 const ENTER_EXAM_SELECTOR = `[type="submit"]`;
 const DELAY_TIME = 3000;
 
-const ID = 502473;
-const EXAM_RESULT_URL = `http://e-learning.hcmut.edu.vn/mod/quiz/view.php?id=${ID}`;
-const NUM_PAGE = 3;
-const QUESTIONS_PATH = rootPath.concat(`/assets/${ID}.json`);
-const BACKUP_PATH = rootPath.concat(`/assets/${ID}-backup.json`);
 const USER_NAME = "son.thach011011";
 const PASSWORD = "bigboobz";
 
@@ -40,7 +35,12 @@ class ElearningCracker {
 
   private backupPath: string;
 
-  constructor(id: number, private userName: string, private password: string) {
+  constructor(
+    id: number,
+    private numPage: number,
+    private userName: string,
+    private password: string
+  ) {
     this.questionPath = rootPath.concat(`/assets/${id}.json`);
     this.backupPath = rootPath.concat(`/assets/${id}-backup.json`);
     this.questions = readJson(this.questionPath, {});
@@ -115,7 +115,7 @@ class ElearningCracker {
   };
 
   private fillAnswer = async () => {
-    for (let i = 0; i < NUM_PAGE; i++) {
+    for (let i = 0; i < this.numPage; i++) {
       await this.fillAnswerByPage(i);
     }
     await this.submitAnswer();
@@ -125,7 +125,7 @@ class ElearningCracker {
    * Pick the unanswered title
    */
   private pickTitle = async () => {
-    for (let i = 0; i < NUM_PAGE; i++) {
+    for (let i = 0; i < this.numPage; i++) {
       const questions = await this.getQuestionsByPage(i);
       const titles = Object.keys(questions);
       for (let j = 0; j < titles.length; j++) {
@@ -266,8 +266,19 @@ class ElearningCracker {
 }
 
 const main = async () => {
-  [502474, 502475];
-  await new ElearningCracker(ID, USER_NAME, PASSWORD).execute();
+  [
+    {
+      id: 502476,
+      numPage: 2,
+    },
+  ].map(async (el) => {
+    await new ElearningCracker(
+      el.id,
+      el.numPage,
+      USER_NAME,
+      PASSWORD
+    ).execute();
+  });
 };
 
 main();
