@@ -1,6 +1,6 @@
 # Elearning cracker
 
-The main purpose of this project is to crack the [HCMUT Elearning website](http://e-learning.hcmut.edu.vn/), Allow you to pass around 80% number of exams on the website
+A cracking exam tool for [HCMUT Elearning website](http://e-learning.hcmut.edu.vn/), Allow you to pass around 80% number of questions on the website
 
 <image src="./elearning-cracker-submit.gif" />
 
