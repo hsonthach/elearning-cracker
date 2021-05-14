@@ -13,7 +13,7 @@ The main purpose of this project is to crack the [HCMUT Elearning website](http:
 
 The idea is simple, the website ask us to complete N questions, allow unlimited attempt to solve the exam, then after we finish the exam, it would show the point we've got, but not allow us to view the answer. <br>
 The solution is we will only submit 1/N question,.If we score > 0 point, means that we've got the right answer.If not at least we can eliminate 1 wrong answer. <br>
-By repeatingly try and fail, we can eliminate all wrong answer
+By repeating try and fail, we can eliminate all wrong answer. Then we can submit the right answers that we have collected so far
 
 # How to use
 
@@ -64,5 +64,5 @@ node ./src/elearning-cracker
 
 ## License
 
-Copyright (c) Microsoft Corporation. All rights reserved.
+All rights reserved.
 Licensed under the [MIT](LICENSE) License.
