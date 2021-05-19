@@ -55,7 +55,7 @@ const main = async () => {
 };
 ```
 
-- Start to project
+- Start project
 
 ```bash
 node ./src/elearning-cracker
